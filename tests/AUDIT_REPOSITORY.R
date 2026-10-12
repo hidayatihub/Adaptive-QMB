@@ -61,16 +61,52 @@ if (length(dat) == 0L) {
 }
 
 cat("\n5. Repository hygiene\n")
-all_paths <- list.files(".", recursive=TRUE, all.files=TRUE,
-                        full.names=TRUE, include.dirs=TRUE, no..=TRUE)
-forbidden_names <- c(".Rproj.user", ".DS_Store", "__MACOSX")
-found_bad <- all_paths[basename(all_paths) %in% forbidden_names | grepl("^\\._", basename(all_paths))]
-if (length(found_bad)) {
-  cat("FAIL unwanted repository metadata found:\n")
-  cat(paste0("  ", found_bad, "\n"))
-  failed <- TRUE
+
+# Check only files actually tracked by Git.
+# Local ignored metadata such as .Rproj.user may legitimately exist
+# on a developer machine but must never be committed to the repository.
+git_available <- nzchar(Sys.which("git"))
+
+if (git_available) {
+  
+  tracked <- tryCatch(
+    system2(
+      "git",
+      c("ls-files"),
+      stdout = TRUE,
+      stderr = FALSE
+    ),
+    error = function(e) character(0)
+  )
+  
+  forbidden_patterns <- c(
+    "(^|/)\\.Rproj\\.user(/|$)",
+    "(^|/)\\.DS_Store$",
+    "(^|/)__MACOSX(/|$)",
+    "(^|/)\\._"
+  )
+  
+  found_bad <- tracked[
+    Reduce(
+      `|`,
+      lapply(
+        forbidden_patterns,
+        function(p) grepl(p, tracked)
+      )
+    )
+  ]
+  
+  if (length(found_bad)) {
+    cat("FAIL unwanted metadata is tracked by Git:\n")
+    cat(paste0("  ", found_bad, "\n"))
+    failed <- TRUE
+  } else {
+    cat("PASS no unwanted RStudio/macOS metadata tracked by Git\n")
+  }
+  
 } else {
-  cat("PASS no RStudio/macOS archive metadata detected\n")
+  
+  cat("SKIP Git executable not available; repository hygiene not checked\n")
 }
 
 cat("\n6. Optional plotting dependency\n")
