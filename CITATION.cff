@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this software or workflow, please cite the Adaptive-QMB repository and the associated manuscript when available."
+title: "Adaptive-QMB: Reproducible ACT-QMB Workflow for CMIP6 Rainfall Bias Correction"
+type: software
+version: "1.2.4"
+authors:
+  - family-names: "Hidayati"
+    given-names: "Fitria"
+    orcid: "https://orcid.org/0009-0002-4789-7305"
+repository-code: "https://github.com/hidayatihub/Adaptive-QMB"
+keywords:
+  - rainfall bias correction
+  - Quantile Matching Bootstrap
+  - Quantile Delta Mapping
+  - CMIP6
+  - precipitation extremes
+  - climate model post-processing
+abstract: >-
+  Adaptive-QMB is the publication-facing repository for the ACT-QMB method,
+  providing a reproducible R workflow for adaptive upper-tail rainfall bias
+  correction of CMIP6 daily precipitation. The repository contains the
+  publication-facing QMB baseline, ACT-QMB core, common metric engine,
+  inferential comparison runner, validation utilities, and figure-generation
+  code used in the major-revision analysis.
+references:
+  - type: article
+    authors:
+      - family-names: "Kokic"
+        given-names: "Philip"
+      - family-names: "Jin"
+        given-names: "Han"
+      - family-names: "Crimp"
+        given-names: "Steven"
+    title: "Improved point scale climate projections using a block bootstrap simulation and quantile matching method"
+    journal: "Climate Dynamics"
+    volume: "41"
+    start: "853"
+    end: "866"
+    year: 2013
+    doi: "10.1007/s00382-013-1791-z"

@@ -1,0 +1,31 @@
+# R / RStudio
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# OS / archive metadata
+.DS_Store
+Thumbs.db
+__MACOSX/
+._*
+
+# Temporary / editor files
+*.tmp
+*.log
+~$*
+*.swp
+
+# Input data are not distributed in this code repository
+# Keep data/adaptive/.gitkeep and data documentation only.
+data/adaptive/*.csv
+data/adaptive/**/*.csv
+
+# Generated analysis outputs are local by default
+results/*
+!results/.gitkeep
+!results/README.md
+
+# Large binary/intermediate products
+*.rds
+*.RDS
